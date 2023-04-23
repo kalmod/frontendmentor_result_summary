@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Results summary component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @font-face {
+      font-family: 'Hanken';
+      src: url('./assets/fonts/HankenGrotesk-VariableFont_wght.ttf');
+    }
+    *,*::before,*::after{
+      box-sizing: border-box;
+    }
+    p{
+      margin: 0;
+    }
+    body{
+      margin: 0;
+      height: 100vh;
+      font-family: 'Hanken',sans-serif;
+    }
+    .attribution{
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    footer{
+      position: absolute;
+      bottom: 0px;
+    }
+    .main-container{
+      width: 550px;
+      background-color: hsl(0, 0%, 100%);
+      aspect-ratio: 2 / 1.4;
+      box-shadow: 6px 15px 25px 0px hsl(226, 68%, 85%);
+      border-radius: 25px;
+      display: flex;
+      justify-content: center;
+      caret-color: transparent;
+    }
+    .card{
+      width: 50%;
+      height: 100%;
+      border-radius: 25px;
+    }
+    .left, .right{
+      display: flex;
+      flex-direction: column;
+    }
+    .left{
+      background: linear-gradient(to bottom, #7857ff 0%, #2e2be9 100%);
+      color: white;
+    }
+
+    .left > *{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .title{
+      flex: 0.2;
+    }
+    .title p {
+      opacity: 0.6;
+      font-size: 18px;
+    }
+    .circle-container{
+      flex: 0.5;
+    }
+    .circle{
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(to bottom, hsla(256, 72%, 46%, 1) 0%, hsla(241, 72%, 46%, 0) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+   
+    .circle p:first-child{
+      font-size: 54px;
+      font-weight: bold;
+    }
+    .circle p:last-child{
+      font-size: 12px;
+      opacity: 0.5;
+      transform: translateY(-40%);
+    }
+    .score-result{
+      flex:0.4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .score-result p{
+      margin: 5px 35px 10px 35px;
+    }
+    .score-result p:first-child{
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .score-result p:last-child{
+      font-size: 14px;
+      text-align: center;
+      opacity: 0.6;
+    }
+
+    .right{
+      background-color: hsl(0, 0%, 100%);
+      align-items: center;
+    }
+    .right > * {
+      display: flex;
+      width: 85%;
+    }
+    .right > div:first-child{
+      flex: 0.12;
+      display: flex;
+      align-items: flex-end;
+    }
+    .right > div:first-child > p{
+      font-weight: 700;
+      font-size: 18px;
+      color: hsl(224, 30%, 27%);
+    }
+    .breakdown-container{
+      flex: 0.65;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+    .breakdown-container > *{
+      display: flex;
+      align-items: center;
+    }
+    .breakdown-container > * > p:last-child{
+      margin-left: auto;
+      transform: translateX(-10px);
+      color: hsl(224, 30%, 27%);
+    }
+    .breakdown-container > * > p:last-child > span{
+      font-weight: 800;
+    }
+    .breakdown-container > * > p:last-child > span:last-child{
+      opacity: 0.5;
+    }
+    .breakdown-tag{
+      width: 100%;
+      height: 45px;
+      border-radius: 10px;
+      font-weight: 500;
+
+      padding: 2px;
+      position: relative;
+    }
+
+    .breakdown-tag::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: inherit;
+      padding: 2px;
+      border-radius: 10px;
+      -webkit-mask:
+        linear-gradient(  0deg,#000 calc(2*2px),#0000 0) 50% 2px/calc(100% - 2*10px) 100% repeat-y,
+        linear-gradient(-90deg,#000 calc(2*2px),#0000 0) 2px 50%/100% calc(100% - 2*10px) repeat-x,
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+    }
+
+    .breakdown-tag > svg{
+      margin: 0 0.5rem 0 0.5rem;
+    }
+
+    .reaction{color: hsl(0, 100%, 67%);background-color: hsla(0, 100%, 67%, 0.1);}
+    .memory{color: hsl(39, 100%, 56%);background-color: hsla(39, 100%, 56%, 0.1);}
+    .verbal{color: hsl(166, 100%, 37%);background-color: hsla(166, 100%, 37%, 0.1);}
+    .visual{color: hsl(234, 85%, 45%);background-color: hsla(234, 85%, 45%, 0.1);}
+
+
+    .right > div:last-child{
+      justify-content: center;
+      align-items: center;
+      flex: 0.2;
+    }
+    button{
+      width: 220px;
+      height: 40px;
+      border-radius: 25px;
+      color: white;
+      font-size: 13px;
+      font-weight: 500;
+      background-color: hsl(224, 30%, 27%);
+      border: none;
+      cursor: pointer;
+    }
+    @media screen and (max-width: 375px){
+      .main-container {
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        min-height: 600px;
+        aspect-ratio: 0;
+        border-radius: 0 0 25px 25px;
+
+      }
+      .left{
+        border-radius: 0 0 25px 25px;
+      }
+      .right{
+        border-radius: 25px 25px 0 0;
+      }
+      .card{
+        width: 100%;
+        height: 50%;
+      }
+      footer{
+        display: none;
+        pointer-events: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="attribution">
+    <div class="main-container">
+      <div class="left card">
+        <div class="title">
+          <p>Your Results</p>
+        </div>
+        <div class="circle-container">
+          <div class="circle">
+            <p>76</p>
+            <p>of 100</p>
+          </div>
+        </div>
+        <div class="score-result">
+          <p>Great</p>
+          <p>You scored higher than 65% of the people who have taken these tests.</p>
+        </div>
+      </div>
+      <div class="right card">
+        <div>
+          <p>Summary</p>
+        </div>
+        <div class = 'breakdown-container'>
+          <div class="breakdown-tag reaction">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20"><path stroke="#F55" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M10.833 8.333V2.5l-6.666 9.167h5V17.5l6.666-9.167h-5Z"/></svg>
+            <p>Reaction</p>
+            <p><span>1</span><span> /100</span></p>
+          </div>
+          <div class="breakdown-tag memory">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20"><path stroke="#FFB21E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M5.833 11.667a2.5 2.5 0 1 0 .834 4.858"/><path stroke="#FFB21E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M3.553 13.004a3.333 3.333 0 0 1-.728-5.53m.025-.067a2.083 2.083 0 0 1 2.983-2.824m.199.054A2.083 2.083 0 1 1 10 3.75v12.917a1.667 1.667 0 0 1-3.333 0M10 5.833a2.5 2.5 0 0 0 2.5 2.5m1.667 3.334a2.5 2.5 0 1 1-.834 4.858"/><path stroke="#FFB21E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M16.447 13.004a3.334 3.334 0 0 0 .728-5.53m-.025-.067a2.083 2.083 0 0 0-2.983-2.824M10 3.75a2.085 2.085 0 0 1 2.538-2.033 2.084 2.084 0 0 1 1.43 2.92m-.635 12.03a1.667 1.667 0 0 1-3.333 0"/></svg>
+            <p>Memory</p>
+            <p><span>1</span><span> /100</span></p>
+          </div>
+          <div class="breakdown-tag verbal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20"><path stroke="#00BB8F" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M7.5 10h5M10 18.333A8.333 8.333 0 1 0 1.667 10c0 1.518.406 2.942 1.115 4.167l-.699 3.75 3.75-.699A8.295 8.295 0 0 0 10 18.333Z"/></svg>
+            <p>Verbal</p>
+            <p><span>1</span><span> /100</span></p>
+          </div>
+          <div class="breakdown-tag visual">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20"><path stroke="#1125D6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M10 11.667a1.667 1.667 0 1 0 0-3.334 1.667 1.667 0 0 0 0 3.334Z"/><path stroke="#1125D6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d="M17.5 10c-1.574 2.492-4.402 5-7.5 5s-5.926-2.508-7.5-5C4.416 7.632 6.66 5 10 5s5.584 2.632 7.5 5Z"/></svg>
+            <p>Visual</p>
+            <p><span>1</span><span> /100</span></p>
+          </div>
+        </div>
+        <div>
+          <button>Continue</button>
+        </div>
+      </div>
+    </div>
+    <footer>
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="https://github.com/kalmod">Kalmod</a>.
+    </footer>
+  </div>
+  <script>
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET','./data.json',true);
+    xhr.onreadystatechange = function(){
+      if (this.readyState === 4 && this.status === 200){
+        const jdata = JSON.parse(this.responseText);
+        updateScoreSummary(jdata);
+      }
+    }
+    xhr.send();
+    
+    function updateScoreSummary(JSONdata){
+      for (let jd of JSONdata){
+        const sp = document.querySelector(`.${jd['category'].toLowerCase()} > p:last-child > span:first-child`);
+        sp.textContent = jd['score'];
+      }
+    }
+  </script>
+</body>
+</html>
