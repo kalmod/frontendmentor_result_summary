@@ -39,8 +39,8 @@ Users should be able to:
 
 ### Screenshot
 
-![](./frontendmentor/results-summary-component-main/assets/images/Screenshot1.png)
-![](./frontendmentor/results-summary-component-main/assets/images/Screenshot2.png)
+![](./assets/images/Screenshot1.png)
+![](./assets/images/Screenshot2.png)
 
 
 ### Links
